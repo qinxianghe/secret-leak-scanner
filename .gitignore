@@ -1,0 +1,10 @@
+﻿.venv/
+__pycache__/
+*.pyc
+secrets.db
+node_modules/
+node-portable/
+node-v22.17.1-win-x64.zip
+*.log
+*.zip
+*.tmp
