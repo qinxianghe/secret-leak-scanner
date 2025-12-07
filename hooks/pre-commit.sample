@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# 预提交钩子示例：扫描已暂存文件，命中则阻断提交。
+FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+if [ -z "$FILES" ]; then
+  exit 0
+fi
+
+python3 "$(git rev-parse --show-toplevel)/cli.py" --mode pre-commit --repo "$(basename "$(pwd)")" --branch "$(git rev-parse --abbrev-ref HEAD)" --files $FILES
+RC=$?
+if [ $RC -ne 0 ]; then
+  echo "[BLOCKED] Detected potential secrets. Fix or allowlist before committing."
+  exit $RC
+fi
+exit 0

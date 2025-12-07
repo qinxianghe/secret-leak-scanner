@@ -1,0 +1,5 @@
+{
+  "name": "Git Guardian: Secret Leak Scanner Dashboard",
+  "description": "A dashboard for viewing, auditing, and managing findings from the Git Hooks-based secret scanning system. It provides insights into potential secret leaks in code repositories.",
+  "requestFramePermissions": []
+}

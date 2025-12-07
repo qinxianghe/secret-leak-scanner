@@ -1,0 +1,60 @@
+
+<div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-white">检测规则</h2>
+      @if (reloadStatus()) {
+        <p class="text-sm text-indigo-300 mt-1">{{ reloadStatus() }}</p>
+      }
+    </div>
+    <div class="flex space-x-4">
+      <button (click)="reloadRules()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-colors flex items-center">
+        <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0l3.181-3.183m-4.991-2.695v-2.695A8.25 8.25 0 005.166 6.168l-3.182 3.182" />
+        </svg>
+        重新加载规则
+      </button>
+      <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+        新增规则
+      </button>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-400">
+      <thead class="text-xs text-gray-300 uppercase bg-gray-700">
+        <tr>
+          <th scope="col" class="px-6 py-3">启用</th>
+          <th scope="col" class="px-6 py-3">规则 ID</th>
+          <th scope="col" class="px-6 py-3">描述</th>
+          <th scope="col" class="px-6 py-3">严重性</th>
+          <th scope="col" class="px-6 py-3">正则模式</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (rule of rules(); track rule.id) {
+          <tr class="border-b border-gray-700">
+            <td class="px-6 py-4">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" [checked]="rule.enabled" (change)="toggleRule(rule)" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+              </label>
+            </td>
+            <td class="px-6 py-4 font-mono text-gray-300">{{ rule.id }}</td>
+            <td class="px-6 py-4">{{ rule.description }}</td>
+            <td class="px-6 py-4">
+               <span class="px-2 py-1 rounded-full font-semibold text-xs" [class]="getSeverityClass(rule.severity)">
+                {{ rule.severity }}
+              </span>
+            </td>
+            <td class="px-6 py-4 font-mono text-xs text-gray-300">{{ rule.pattern }}</td>
+          </tr>
+        } @empty {
+           <tr>
+              <td colspan="5" class="text-center py-8 text-gray-500">暂未加载到规则。</td>
+           </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

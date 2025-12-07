@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# 服务器端 pre-receive 钩子示例：对推送范围内的差异文件进行扫描，命中则拒绝。
+while read oldrev newrev refname; do
+  FILES=$(git diff --name-only "$oldrev" "$newrev" --diff-filter=ACMR)
+  if [ -z "$FILES" ]; then
+    continue
+  fi
+  python3 "$(pwd)/cli.py" --mode pre-receive --repo "$refname" --branch "$refname" --files $FILES
+  RC=$?
+  if [ $RC -ne 0 ]; then
+    echo "[REJECT] Secrets found in push: $refname" 1>&2
+    exit $RC
+  fi
+done
+exit 0

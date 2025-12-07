@@ -1,0 +1,24 @@
+- id: AWS_ACCESS_KEY
+  pattern: "AKIA[0-9A-Z]{16}"
+  severity: High
+  description: "AWS Access Key ID"
+  enabled: true
+  validators: ["length>=20"]
+- id: GITHUB_TOKEN
+  pattern: "ghp_[0-9A-Za-z]{36}"
+  severity: High
+  description: "GitHub personal access token"
+  enabled: true
+  validators: ["length>=39"]
+- id: RSA_PRIVATE_KEY
+  pattern: "-----BEGIN RSA PRIVATE KEY-----"
+  severity: High
+  description: "RSA private key header"
+  enabled: true
+  validators: ["pem"]
+- id: JWT
+  pattern: "[A-Za-z0-9_-]+?\\.[A-Za-z0-9_-]+?\\.[A-Za-z0-9_-]{10,}"
+  severity: Medium
+  description: "Likely JWT token"
+  enabled: true
+  validators: ["jwt"]
