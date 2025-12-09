@@ -1,4 +1,3 @@
-
 <div class="space-y-8">
   <h2 class="text-3xl font-bold text-white">仪表盘</h2>
 
@@ -17,13 +16,12 @@
         <h3 class="text-gray-400 text-sm font-medium">扫描总数</h3>
         <p class="text-3xl font-bold text-white mt-2">{{ currentStats.scans }}</p>
       </div>
-       <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
         <h3 class="text-gray-400 text-sm font-medium">近期高危</h3>
         <p class="text-3xl font-bold text-red-500 mt-2">{{ derivedStats().criticalCount }}</p>
       </div>
     </div>
   } @else {
-    <!-- Skeleton Loader for Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">
       @for (_ of [1,2,3,4]; track _) {
         <div class="bg-gray-800 p-6 rounded-xl h-28 border border-gray-700"></div>
@@ -35,14 +33,24 @@
     <!-- Trend Chart -->
     <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
       <h3 class="text-lg font-semibold text-white mb-4">近7天趋势</h3>
-      <div class="h-64 flex items-end justify-between space-x-2">
-        @for (item of trendData; track item.day) {
-          <div class="flex-1 flex flex-col items-center">
-            <div class="w-full bg-gray-700 rounded-t-md hover:bg-indigo-500 transition-colors" [style.height.%]="(item.count / maxTrendCount) * 100"></div>
-            <span class="text-xs text-gray-400 mt-2">{{ item.day }}</span>
-          </div>
-        }
-      </div>
+      @if (hasTrendData) {
+        <div class="h-64 flex items-end justify-between space-x-2 bg-gray-900/60 rounded-lg px-2 py-3 overflow-hidden">
+          @for (item of trendDataList; track item.label) {
+            <div class="flex-1 flex flex-col items-center h-full">
+              <div class="text-xs text-gray-300 mb-1">{{ item.count }}</div>
+              <div class="h-48 w-full flex items-end justify-center">
+                <div class="w-3/4 rounded-t-md shadow-sm"
+                     [style.height.px]="getBarHeightPx(item.count)"
+                     [style.backgroundColor]="item.count > 0 ? '#22c55e' : '#374151'">
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 mt-2">{{ item.label }}</span>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="h-64 flex items-center justify-center text-gray-500 text-sm">近7天暂无数据</div>
+      }
     </div>
 
     <!-- Recent Findings -->
@@ -64,12 +72,11 @@
             <p class="text-gray-500 text-center py-10">暂无最新发现。</p>
           }
         } @else {
-          <!-- Skeleton Loader for Recent Findings -->
-           <div class="space-y-3 animate-pulse">
-             @for (_ of [1,2,3,4,5]; track _) {
-               <div class="h-12 bg-gray-700/50 rounded-lg"></div>
-             }
-           </div>
+          <div class="space-y-3 animate-pulse">
+            @for (_ of [1,2,3,4,5]; track _) {
+              <div class="h-12 bg-gray-700/50 rounded-lg"></div>
+            }
+          </div>
         }
       </div>
     </div>

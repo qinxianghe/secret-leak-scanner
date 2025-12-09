@@ -20,7 +20,10 @@ ENTROPY_MIN_LENGTH = int(os.getenv("ENTROPY_MIN_LENGTH", "24"))
 
 app = FastAPI()
 
-origins = os.getenv("CORS_ORIGINS", "http://localhost:4200,http://127.0.0.1:4200").split(",")
+origins = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:4200,http://127.0.0.1:4200,http://localhost:3000,http://127.0.0.1:3000",
+).split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in origins if o.strip()],

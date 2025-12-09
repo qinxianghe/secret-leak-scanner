@@ -7,7 +7,8 @@ import { Finding, Rule, ScanResult, Stats } from '../types';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private http = inject(HttpClient);
-  private apiUrl = '/api';
+  // 调试/开发直连后端；如有需要可改为相对路径并配置代理
+  private apiUrl = 'http://localhost:8000/api';
 
   getStats(): Observable<Stats> {
     return this.http.get<Stats>(`${this.apiUrl}/stats`);
