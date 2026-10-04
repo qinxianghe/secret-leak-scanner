@@ -5,7 +5,7 @@ if [ -z "$FILES" ]; then
   exit 0
 fi
 
-python3 "$(git rev-parse --show-toplevel)/cli.py" --mode pre-commit --repo "$(basename "$(pwd)")" --branch "$(git rev-parse --abbrev-ref HEAD)" --files $FILES
+python3 "$(git rev-parse --show-toplevel)/backend/cli.py" --mode pre-commit --repo "$(basename "$(pwd)")" --branch "$(git rev-parse --abbrev-ref HEAD)" --files $FILES
 RC=$?
 if [ $RC -ne 0 ]; then
   echo "[BLOCKED] Detected potential secrets. Fix or allowlist before committing."

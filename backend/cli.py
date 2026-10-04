@@ -64,8 +64,9 @@ def main():
     parser.add_argument("--entropy-min-length", type=int, default=24)
     args = parser.parse_args()
 
-    rules = load_rules()
-    allowlist = load_allowlist()
+    config_dir = Path(__file__).resolve().parent
+    rules = load_rules(str(config_dir / "rules.yml"))
+    allowlist = load_allowlist(str(config_dir / "allowlist.yml"))
     files: List[str] = args.files or []
     if not files:
         sys.stderr.write("No files provided to scan.\n")
