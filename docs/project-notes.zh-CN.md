@@ -1,3 +1,5 @@
+> 历史技术说明：下文保留整理前的笔记，其中的 Windows 路径、旧目录名与 Hook 操作描述不代表当前可直接复现的流程。当前安装、目录结构和安全限制请以 [根 README](../README.md) 为准；Hook 样例尚未验证为完整的阻断机制。
+
 # 密钥泄露防护平台（前后端一体说明）
 
 > Git Hooks + FastAPI + SQLite + SQLAlchemy + Angular 21（Zoneless 独立组件）  

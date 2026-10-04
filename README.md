@@ -43,7 +43,7 @@ Exit code `1` indicates findings; `0` indicates no findings in the files process
 
 ## Dashboard
 
-The frontend requires a Node.js version compatible with its pinned Angular dependencies. This cleanup does not install Node.js on the Mac.
+The frontend requires a Node.js version compatible with its Angular 21 dependencies and checked-in lockfile. This cleanup does not install Node.js on the Mac.
 
 ```sh
 cd frontend
@@ -58,7 +58,8 @@ The checked-in development configuration uses port `3000`; its API service targe
 - This is a prototype rather than a complete security control. Detection can produce false positives and false negatives.
 - Stored findings use masks or hashes, but scan responses may still contain the raw matched string.
 - API authentication is optional through `API_TOKEN`; the frontend does not yet attach that header.
-- Hook samples enumerate staged filenames and scan working-tree files. They do not validate the exact staged blob.
+- The pre-commit sample enumerates staged filenames but scans working-tree bytes, so it does not validate the exact staged blob.
+- The pre-receive sample lists changed paths between revisions and expects a working tree with the scanner installed. It cannot be copied directly into a bare server repository. Missing/skipped files can return no findings and a successful exit code; neither hook is a verified enforcement control.
 - Notifications and some dashboard workflows remain placeholders.
 
 See [existing Chinese technical notes](docs/project-notes.zh-CN.md) and [validation record](docs/validation.md). No production credentials or new deployment results are included.

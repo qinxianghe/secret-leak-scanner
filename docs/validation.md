@@ -4,9 +4,9 @@ Date: 2026-10-04. Cleanup baseline commit: `128b9b3ec44e16a42453a6eab1b50baff161
 
 ## Preservation and structure
 
-- 32 retained blobs are unchanged at their current paths.
+- 31 retained blobs are unchanged at their current paths.
 - 32 generated build/cache/executable entries are omitted from the current tree; the baseline history remains available.
-- New documents and required configuration/path adaptations are recorded in the cleanup pull request. No existing source history is rewritten.
+- New documents, the historical-note banner, and required configuration/path adaptations are recorded in the cleanup pull request. No existing source history is rewritten.
 - Current filenames have no case-insensitive collisions. Markdown file links and generated-output ignore rules are checked before publication.
 
 ## Checks and limits
